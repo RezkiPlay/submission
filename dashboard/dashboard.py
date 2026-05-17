@@ -3,12 +3,16 @@ Bike Sharing Data Dashboard
 Capital Bikeshare Washington D.C. (2011–2012)
 """
 
+import os
 import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 import seaborn as sns
+
+# Resolve paths relative to this script, regardless of working directory
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -22,8 +26,8 @@ sns.set_theme(style="whitegrid", palette="muted")
 # ── Load data ─────────────────────────────────────────────────────────────────
 @st.cache_data
 def load_data():
-    day  = pd.read_csv("main_data.csv",  parse_dates=["dteday"])
-    hour = pd.read_csv("hour_data.csv",  parse_dates=["dteday"])
+    day  = pd.read_csv(os.path.join(BASE_DIR, "main_data.csv"),  parse_dates=["dteday"])
+    hour = pd.read_csv(os.path.join(BASE_DIR, "hour_data.csv"), parse_dates=["dteday"])
     return day, hour
 
 df_day, df_hour = load_data()
